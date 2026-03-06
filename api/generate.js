@@ -1,5 +1,4 @@
-export default async function handler(req, res) {
-  // CORS headers
+module.exports = async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
@@ -13,11 +12,15 @@ export default async function handler(req, res) {
   try {
     const { brand, peeve, hobby } = req.body;
 
+    if (!brand || !peeve || !hobby) {
+      return res.status(400).json({ error: 'Missing required fields' });
+    }
+
     const prompt = `You are a hilariously deadpan M&A press release generator for the Berkeley Forum on M&A and the Boardroom.
 
 The user has provided three inputs:
 - Favorite brand (their company's vibe/aesthetic): "${brand}"
-- Biggest pet peeve (the problem they solve): "${peeve}"  
+- Biggest pet peeve (the problem they solve): "${peeve}"
 - Most niche hobby or obsession (their secret differentiator): "${hobby}"
 
 Generate a SHORT, witty mock press release (4-5 paragraphs max) that includes:
@@ -59,4 +62,4 @@ Keep it sharp, dry, and smart — like The Onion met the Wall Street Journal. Un
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
-}
+};
