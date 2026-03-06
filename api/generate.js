@@ -1,7 +1,14 @@
 export default async function handler(req, res) {
-  if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Method not allowed' });
-  }
+  // CORS headers
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
+  if (req.method === 'OPTIONS') return res.status(200).end();
+  if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
+
+  const apiKey = process.env.ANTHROPIC_API_KEY;
+  if (!apiKey) return res.status(500).json({ error: 'API key not configured' });
 
   try {
     const { brand, peeve, hobby } = req.body;
@@ -27,7 +34,7 @@ Keep it sharp, dry, and smart — like The Onion met the Wall Street Journal. Un
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "x-api-key": process.env.ANTHROPIC_API_KEY,
+        "x-api-key": apiKey,
         "anthropic-version": "2023-06-01"
       },
       body: JSON.stringify({
@@ -37,10 +44,15 @@ Keep it sharp, dry, and smart — like The Onion met the Wall Street Journal. Un
       })
     });
 
+    if (!response.ok) {
+      const errData = await response.json();
+      return res.status(500).json({ error: JSON.stringify(errData) });
+    }
+
     const data = await response.json();
     const text = data.content?.map(b => b.text || '').join('') || '';
 
-    if (!text) throw new Error('Empty response');
+    if (!text) return res.status(500).json({ error: 'Empty response from Claude' });
 
     res.status(200).json({ text });
 
