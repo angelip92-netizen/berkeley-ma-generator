@@ -16,22 +16,25 @@ module.exports = async function handler(req, res) {
       return res.status(400).json({ error: 'Missing required fields' });
     }
 
-    const prompt = `You are a hilariously deadpan M&A press release generator for the Berkeley Forum on M&A and the Boardroom.
+    const prompt = `You are a hilariously deadpan M&A deal memo generator for the Berkeley Forum on M&A and the Boardroom.
 
 The user has provided three inputs:
 - Favorite brand (their company's vibe/aesthetic): "${brand}"
 - Biggest pet peeve (the problem they solve): "${peeve}"
 - Most niche hobby or obsession (their secret differentiator): "${hobby}"
 
-Generate a SHORT, witty mock press release (4-5 paragraphs max) that includes:
-1. A headline announcing the acquisition of their absurd startup
-2. A creative startup name and one-line description of what it does (combining the three inputs in an unexpected but logical way)
-3. A comically precise but absurd valuation (e.g. "$2.3 billion, pending regulatory review in Delaware")
-4. A specific, well-known acquirer that makes surprising but perfect sense (could be a tech giant, consumer brand, or unexpected company)
-5. A fake quote from the acquirer's CEO explaining why this acquisition is "strategically essential"
-6. A closing line that references the Berkeley Forum or M&A in a fun way
+Respond ONLY with a valid JSON object, no markdown, no backticks, no explanation. Use this exact structure:
 
-Keep it sharp, dry, and smart — like The Onion met the Wall Street Journal. Under 250 words total. Use bold for the headline only.`;
+{
+  "companyName": "A creative 1-2 word startup name",
+  "tagline": "A deadpan one-liner tagline in quotes",
+  "concept": "2-3 sentences describing what the company does, combining all three inputs in an unexpected but logical way. Make it sound like a real pitch but absurd.",
+  "valuation": "$X.XB pre-money",
+  "valuationJoke": "One line joke about the valuation methodology",
+  "acquirer": "Name of the specific well-known company acquiring them",
+  "acquirerLogic": "2-3 sentences written as a real press release announcement explaining why this acquisition makes strategic sense, with a fake executive quote. Make it dry and funny.",
+  "closingLine": "One witty sentence referencing the Berkeley Forum or M&A law"
+}`;
 
     const response = await fetch("https://api.anthropic.com/v1/messages", {
       method: "POST",
@@ -53,11 +56,18 @@ Keep it sharp, dry, and smart — like The Onion met the Wall Street Journal. Un
     }
 
     const data = await response.json();
-    const text = data.content?.map(b => b.text || '').join('') || '';
+    const raw = data.content?.map(b => b.text || '').join('') || '';
 
-    if (!text) return res.status(500).json({ error: 'Empty response from Claude' });
+    if (!raw) return res.status(500).json({ error: 'Empty response from Claude' });
 
-    res.status(200).json({ text });
+    // Try to parse as JSON
+    try {
+      const parsed = JSON.parse(raw.replace(/```json|```/g, '').trim());
+      res.status(200).json({ structured: parsed });
+    } catch(e) {
+      // Fallback to plain text
+      res.status(200).json({ text: raw });
+    }
 
   } catch (err) {
     res.status(500).json({ error: err.message });
