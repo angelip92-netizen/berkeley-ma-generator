@@ -38,23 +38,37 @@
     .btn:hover { background: #004080; }
     .btn:active { transform: scale(0.99); }
     .btn:disabled { background: #8fa8c0; cursor: not-allowed; }
-    .loading { text-align: center; padding: 36px 20px; display: none; }
+    .loading { text-align: center; padding: 48px 20px; display: none; }
     .loading.visible { display: block; }
-    .spinner { width: 36px; height: 36px; border: 3px solid var(--light-gray); border-top-color: var(--berkeley-blue); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 16px; }
+    .spinner { width: 40px; height: 40px; border: 3px solid var(--light-gray); border-top-color: var(--berkeley-blue); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 20px; }
     @keyframes spin { to { transform: rotate(360deg); } }
-    .loading p { font-family: 'EB Garamond', serif; font-size: 16px; color: var(--text-mid); font-style: italic; }
+    .loading-steps { display: flex; flex-direction: column; gap: 8px; align-items: center; }
+    .loading-step { font-family: 'EB Garamond', serif; font-size: 16px; color: var(--text-mid); font-style: italic; opacity: 0.3; }
+    .loading-step.active { opacity: 1; color: var(--berkeley-blue); font-weight: 600; }
+    .loading-step.done { opacity: 0.2; }
     .result-card { background: var(--white); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; box-shadow: 0 2px 20px rgba(0,50,98,0.1); display: none; animation: fadeUp 0.4s ease; }
     .result-card.visible { display: block; }
     @keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
-    .result-gold-bar { height: 3px; background: var(--cal-gold); }
-    .result-header { background: var(--berkeley-blue); padding: 20px 24px; }
-    .result-header-text { font-size: 10px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--cal-gold); }
-    .result-body { padding: 24px 24px 28px; }
-    .press-release { font-family: 'EB Garamond', serif; font-size: 17px; line-height: 1.75; color: var(--text-dark); white-space: pre-wrap; }
-    .press-release strong { color: var(--berkeley-blue); font-weight: 600; }
-    .result-footer { border-top: 1px solid var(--border); padding: 16px 24px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; background: var(--off-white); }
-    .result-footer-text { font-size: 12px; color: var(--text-mid); font-style: italic; }
-    .btn-reset { padding: 9px 18px; background: transparent; border: 1.5px solid var(--berkeley-blue); color: var(--berkeley-blue); border-radius: 6px; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+    .forum-banner { padding: 14px 24px; background: var(--cal-gold); text-align: center; }
+    .forum-banner a { font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 700; color: var(--berkeley-blue); text-decoration: none; letter-spacing: 0.02em; }
+    .forum-banner a:hover { text-decoration: underline; }
+    .memo-header { background: var(--berkeley-blue); padding: 20px 24px; }
+    .memo-label { font-size: 10px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--cal-gold); margin-bottom: 4px; }
+    .memo-sublabel { font-size: 11px; color: rgba(255,255,255,0.6); letter-spacing: 0.05em; }
+    .gold-bar-thin { height: 3px; background: var(--cal-gold); }
+    .memo-company { padding: 24px 24px 20px; border-bottom: 1px solid var(--border); }
+    .company-name { font-family: 'EB Garamond', serif; font-size: 32px; font-weight: 600; color: var(--berkeley-blue); line-height: 1.1; margin-bottom: 6px; }
+    .company-tagline { font-family: 'EB Garamond', serif; font-size: 16px; color: var(--text-mid); font-style: italic; }
+    .memo-section { padding: 18px 24px; border-bottom: 1px solid var(--border); }
+    .section-label { font-size: 10px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--cal-gold); margin-bottom: 8px; }
+    .section-content { font-family: 'EB Garamond', serif; font-size: 17px; line-height: 1.7; color: var(--text-dark); }
+    .section-content.small { font-size: 14px; color: var(--text-mid); font-style: italic; margin-top: 4px; font-family: 'DM Sans', sans-serif; }
+    .valuation-number { font-family: 'EB Garamond', serif; font-size: 28px; font-weight: 600; color: var(--berkeley-blue); }
+    .acquirer-name { font-family: 'EB Garamond', serif; font-size: 22px; font-weight: 600; color: var(--berkeley-blue); margin-bottom: 8px; }
+    .closing-line { background: var(--light-gray); padding: 16px 24px; font-family: 'EB Garamond', serif; font-size: 15px; color: var(--text-mid); font-style: italic; text-align: center; border-top: 1px solid var(--border); }
+    .disclaimer { padding: 12px 24px; background: var(--white); border-top: 1px solid var(--border); font-size: 11px; color: #aaa; text-align: center; font-family: 'DM Sans', sans-serif; letter-spacing: 0.02em; }
+    .result-footer { border-top: 1px solid var(--border); padding: 16px 24px; display: flex; align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap; background: var(--off-white); }
+    .btn-reset { padding: 9px 18px; background: transparent; border: 1.5px solid var(--berkeley-blue); color: var(--berkeley-blue); border-radius: 6px; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.2s; text-decoration: none; display: inline-block; }
     .btn-reset:hover { background: var(--berkeley-blue); color: var(--white); }
     .error-msg { background: #fff3f3; border: 1px solid #ffcccc; border-radius: 8px; padding: 14px 18px; font-size: 13px; color: #cc0000; display: none; margin-top: 12px; word-break: break-word; }
     .error-msg.visible { display: block; }
@@ -96,20 +110,46 @@
 
     <div class="loading" id="loading">
       <div class="spinner"></div>
-      <p>Running the numbers... valuing your empire...</p>
+      <div class="loading-steps">
+        <div class="loading-step" id="step1">Valuing your vision...</div>
+        <div class="loading-step" id="step2">Finding your acquiror...</div>
+        <div class="loading-step" id="step3">Drafting the press release...</div>
+        <div class="loading-step" id="step4">Pending FTC and DOJ review...</div>
+      </div>
     </div>
 
     <div class="result-card" id="resultCard">
-      <div class="result-gold-bar"></div>
-      <div class="result-header">
-        <div class="result-header-text">🔔 Breaking M&A News</div>
+      <div class="forum-banner">
+        <a href="https://www.theberkeleyforum.com/" target="_blank">Register for The Berkeley Forum · April 23, 2026 · Convene SF →</a>
       </div>
-      <div class="result-body">
-        <div class="press-release" id="pressRelease"></div>
+      <div class="memo-header">
+        <div class="memo-label">Deal Memo · Confidential</div>
+        <div class="memo-sublabel">Berkeley Forum 2026</div>
       </div>
+      <div class="gold-bar-thin"></div>
+      <div class="memo-company">
+        <div class="company-name" id="companyName"></div>
+        <div class="company-tagline" id="companyTagline"></div>
+      </div>
+      <div class="memo-section">
+        <div class="section-label">The Concept</div>
+        <div class="section-content" id="concept"></div>
+      </div>
+      <div class="memo-section">
+        <div class="section-label">Valuation</div>
+        <div class="valuation-number" id="valuation"></div>
+        <div class="section-content small" id="valuationJoke"></div>
+      </div>
+      <div class="memo-section">
+        <div class="section-label">Acquired By</div>
+        <div class="acquirer-name" id="acquirerName"></div>
+        <div class="section-content" id="acquirerLogic"></div>
+      </div>
+      <div class="closing-line" id="closingLine"></div>
+      <div class="disclaimer">⚠️ This content is fictional and not real. It is intended for entertainment purposes only. Any resemblance to actual companies, executives, or transactions is purely coincidental.</div>
       <div class="result-footer">
-        <span class="result-footer-text">Presented by the 2026 Berkeley Forum on M&A and the Boardroom · April 23, 2026</span>
         <button class="btn-reset" onclick="reset()">Try Another →</button>
+        <a href="https://www.theberkeleyforum.com/" target="_blank" class="btn-reset">Register for The Berkeley Forum →</a>
       </div>
     </div>
   </main>
@@ -122,6 +162,7 @@
 
   <script>
     const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbyaDwqtwE-2EwoRvp2SQuXevZ9mdlH4pCVmoyWqZZ8m5jv05WQ_IDjk-x4cNAmpmM_34Q/exec';
+    let loadingInterval;
 
     async function logToSheets(brand, peeve, hobby, result) {
       try {
@@ -131,10 +172,24 @@
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ brand, peeve, hobby, result })
         });
-      } catch (err) {
-        console.warn('Logging failed:', err);
-      }
+      } catch (err) { console.warn('Logging failed:', err); }
     }
+
+    function startLoadingAnimation() {
+      const steps = ['step1','step2','step3','step4'];
+      let current = 0;
+      steps.forEach(id => document.getElementById(id).className = 'loading-step');
+      document.getElementById(steps[0]).classList.add('active');
+      loadingInterval = setInterval(() => {
+        document.getElementById(steps[current]).classList.remove('active');
+        document.getElementById(steps[current]).classList.add('done');
+        current = (current + 1) % steps.length;
+        document.getElementById(steps[current]).classList.remove('done');
+        document.getElementById(steps[current]).classList.add('active');
+      }, 1200);
+    }
+
+    function stopLoadingAnimation() { clearInterval(loadingInterval); }
 
     async function generate() {
       const brand = document.getElementById('brand').value.trim();
@@ -155,6 +210,7 @@
       document.getElementById('formCard').style.display = 'none';
       document.getElementById('loading').classList.add('visible');
       document.getElementById('resultCard').classList.remove('visible');
+      startLoadingAnimation();
 
       try {
         const response = await fetch('/api/generate', {
@@ -164,29 +220,37 @@
         });
 
         let data;
-        try {
-          data = await response.json();
-        } catch(e) {
-          throw new Error('Could not parse response (HTTP ' + response.status + ')');
-        }
+        try { data = await response.json(); }
+        catch(e) { throw new Error('Could not parse response (HTTP ' + response.status + ')'); }
 
-        if (!response.ok || !data.text) {
-          throw new Error(data.error || 'HTTP ' + response.status);
-        }
+        if (!response.ok) throw new Error(data.error || 'HTTP ' + response.status);
 
-        const lines = data.text.split('\n');
-        const formatted = lines.map((line, i) => {
-          if (i === 0 && line.trim()) return '<strong>' + line.replace(/\*\*/g, '') + '</strong>';
-          return line.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-        }).join('\n');
-
-        document.getElementById('pressRelease').innerHTML = formatted;
+        stopLoadingAnimation();
         document.getElementById('loading').classList.remove('visible');
+
+        if (data.structured) {
+          const s = data.structured;
+          document.getElementById('companyName').textContent = s.companyName || '';
+          document.getElementById('companyTagline').textContent = s.tagline || '';
+          document.getElementById('concept').textContent = s.concept || '';
+          document.getElementById('valuation').textContent = s.valuation || '';
+          document.getElementById('valuationJoke').textContent = s.valuationJoke || '';
+          document.getElementById('acquirerName').textContent = s.acquirer || '';
+          document.getElementById('acquirerLogic').textContent = s.acquirerLogic || '';
+          document.getElementById('closingLine').textContent = s.closingLine || '';
+          logToSheets(brand, peeve, hobby, JSON.stringify(s));
+        } else if (data.text) {
+          document.getElementById('companyName').textContent = 'Your Exit';
+          document.getElementById('concept').textContent = data.text;
+          logToSheets(brand, peeve, hobby, data.text);
+        } else {
+          throw new Error(data.error || 'Empty response');
+        }
+
         document.getElementById('resultCard').classList.add('visible');
 
-        logToSheets(brand, peeve, hobby, data.text);
-
       } catch (err) {
+        stopLoadingAnimation();
         document.getElementById('loading').classList.remove('visible');
         document.getElementById('formCard').style.display = 'block';
         document.getElementById('generateBtn').disabled = false;
@@ -206,9 +270,7 @@
     }
 
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' && !document.getElementById('generateBtn').disabled) {
-        generate();
-      }
+      if (e.key === 'Enter' && !document.getElementById('generateBtn').disabled) generate();
     });
   </script>
 </body>
